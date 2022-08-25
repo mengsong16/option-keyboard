@@ -15,11 +15,11 @@ parser.add_argument('-e', '--env-name', default='ForagingWorld-v0',
                     help='Name of environment')
 parser.add_argument('-s', '--seed', default=0, type=int,
                     help='Random seed')
-parser.add_argument('--exp-name', required=True,
+parser.add_argument('--exp-name', default="ok_exp", #required=True,
                     help='Name of experiment')
 parser.add_argument('--n-test-runs', default=10, type=int,
                     help='Number of episodes at each test run')
-parser.add_argument('--log-dir', default='/data/results',
+parser.add_argument('--log-dir', default='/home/meng/option-keyboard/data/results',
                     help='Specify path to directory where logs will be'
                     'saved')
 # Option Keyboard parameters
@@ -80,6 +80,9 @@ def main():
 
     # Learn the Option Keyboard
     env.set_learning_options(np.array([1, 1]), True)
+
+    # Learn low level Qs
+    # d = num of resources in the env = number of basis Q functions = 2
     Q_E = learn_options(env=env,
                         d=env.num_resources(),
                         eps1=args.eps1_ok,
@@ -110,9 +113,11 @@ def main():
 
     W = [x for x in product([-1, 0, 1], repeat=2) if sum(x) >= 0]
     W.remove((0, 0))
+    # W: [5,2] 
     W = np.array(W)
 
-    # Learn the agent
+    
+    # Learn high level Q
     Q_w = keyboard_player(env=env,
                           W=W,
                           Q=Q_E,

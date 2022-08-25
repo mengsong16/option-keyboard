@@ -42,7 +42,7 @@ def learn_options(env, d, eps1, eps2, alpha, gamma, max_ep_steps, device,
         action_dim = env.action_space.shape
 
     # One Q-network for each cumulant, where each network gives the Q-values
-    # for all actions in a state for each option. So, the output dimension of
+    # for all actions (augmented by 1) in a state for each option. So, the output dimension of
     # each Q-network is (|A| + 1) x n_options
     value_fns = [ValueFunction(input_dim=state_dim + d,
                                action_dim=(action_dim + 1),

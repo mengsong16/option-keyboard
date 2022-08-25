@@ -29,7 +29,9 @@ def keyboard_player(env, W, Q, alpha, eps, gamma, training_steps, batch_size,
         log_dir: Directory where logs and intermediate models are saved
     """
 
+    # n = 5
     n = W.shape[0]
+    
     Q_w = MlpDiscrete(input_dim=env.observation_space.shape[0],
                       output_dim=n,
                       hidden=[64, 128])

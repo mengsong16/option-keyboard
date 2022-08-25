@@ -12,6 +12,7 @@ def set_global_seed(seed):
     random.seed(seed)
 
 
+# update history
 def update(h, s_next, food_type, device):
     """
         h: history
@@ -52,12 +53,12 @@ def create_log_files(args, n_cumulants):
     """
     # Create base directory to store all experiment results
     try:
-        os.mkdir(args.log_dir)
+        os.makedirs(args.log_dir)
     except FileExistsError:
         pass
     try:
         base_dir = os.path.join(args.log_dir, args.exp_name)
-        os.mkdir(base_dir)
+        os.makedirs(base_dir)
     except FileExistsError:
         pass
 
@@ -68,19 +69,19 @@ def create_log_files(args, n_cumulants):
 
     # Create empty directory for saved models
     try:
-        os.mkdir(os.path.join(base_dir, 'saved_models'))
+        os.makedirs(os.path.join(base_dir, 'saved_models'))
     except FileExistsError:
         pass
 
     # Create empty directory within saved models for best models
     try:
-        os.mkdir(os.path.join(base_dir, 'saved_models', 'best'))
+        os.makedirs(os.path.join(base_dir, 'saved_models', 'best'))
     except FileExistsError:
         pass
 
     # Create folder to store Tensorboard log
     try:
-        os.mkdir(os.path.join(base_dir, 'runs'))
+        os.makedirs(os.path.join(base_dir, 'runs'))
     except FileExistsError:
         pass
 
